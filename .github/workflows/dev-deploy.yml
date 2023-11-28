@@ -1,0 +1,25 @@
+name: Development - Build & deploy Citadel API
+
+on:
+  workflow_dispatch:
+
+env:
+  # Name of Azure Web APP
+  APP_NAME: app
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: dotnet Publish App
+        run: sleep ${{ vars.VAR_SLEEPDURATION }} && echo ${{ vars.VAR_TESTMESSAGE }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: dotnet Publish App
+        run: sleep ${{ vars.VAR_SLEEPDURATION }} && echo ${{ vars.VAR_TESTMESSAGE }}
