@@ -36,6 +36,7 @@ jobs:
         id: return_dispatch
         with:
           token: ${{ secrets.TESTGITHUBTOKEN }}
+          ref: refs/heads/main
           repo: test-report
           owner: Duy-KMS
           workflow: dev-deploy.yml
