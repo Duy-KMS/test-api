@@ -35,14 +35,14 @@ jobs:
         uses: codex-/return-dispatch@v1
         id: return_dispatch
         with:
-          token: ${{ github.token }}
+          token: ${{ secrets.TESTGITHUBTOKEN }}
           repo: test-report
           owner: Duy-KMS
           workflow: dev-deploy.yml
       - name: Await Run ID ${{ steps.return_dispatch.outputs.run_id }}
         uses: Codex-/await-remote-run@v1.0.0
         with:
-          token: ${{ github.token }}
+          token: ${{ secrets.TESTGITHUBTOKEN }}
           repo: test-report
           owner: Duy-KMS
           run_id: ${{ steps.return_dispatch.outputs.run_id }}
