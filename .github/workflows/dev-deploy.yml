@@ -3,6 +3,9 @@ name: Development - Build & deploy
 on:
   workflow_dispatch:
 
+concurrency:
+  group: test-deploy
+
 env:
   # Name of Azure Web APP
   APP_NAME: app
