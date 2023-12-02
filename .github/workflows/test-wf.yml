@@ -5,13 +5,13 @@ on:
 
 # Use concurrency to enforce only 1 workflow can run at a time
 concurrency:
-  group: test-deploy-${{ endsWith(fromJson('["0", "2", "4", "6", "8"]'), github.run_number) }}
+  group: test-deploy-${{ endsWith('0', github.run_number) || endsWith('2', github.run_number) || endsWith('4', github.run_number) || endsWith('6', github.run_number) || endsWith('8', github.run_number) }}
 
 env:
   # Name of Azure Web APP
   APP_NAME: app
   NUM: ${{ github.run_number }}
-  ISEVEN: test-deploy-${{ endsWith(fromJson('["0", "2", "4", "6", "8"]'), github.run_number) }}
+  ISEVEN: ${{ endsWith('0', github.run_number) || endsWith('2', github.run_number) || endsWith('4', github.run_number) || endsWith('6', github.run_number) || endsWith('8', github.run_number) }}
 
 jobs:
   build:
