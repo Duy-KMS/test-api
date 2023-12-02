@@ -23,6 +23,7 @@ jobs:
       - name: run number with offset
         run: |
           echo "GITHUB_RUN_NUMBER_WITH_OFFSET=$(($NUM + 200))" >> $GITHUB_ENV
+          echo "run_number: ${{ github.run_number }}"
           echo ${{ env.ISEVEN }}
 
       - name: dotnet Publish App
