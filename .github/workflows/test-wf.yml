@@ -5,13 +5,13 @@ on:
 
 # Use concurrency to enforce only 1 workflow can run at a time
 concurrency:
-  group: test-deploy-${{ endsWith(fromJson('["0", "2", "4", "6", "8"]'), github.run_number) && '0' || '1' }}
+  group: test-deploy-${{ endsWith(fromJson('["0", "2", "4", "6", "8"]'), github.run_number) }}
 
 env:
   # Name of Azure Web APP
   APP_NAME: app
   NUM: ${{ github.run_number }}
-  ISEVEN: test-deploy-${{ endsWith(fromJson('["0", "2", "4", "6", "8"]'), github.run_number) && '1' || '0' }}
+  ISEVEN: test-deploy-${{ endsWith(fromJson('["0", "2", "4", "6", "8"]'), github.run_number) }}
 
 jobs:
   build:
@@ -24,6 +24,7 @@ jobs:
         run: |
           echo "GITHUB_RUN_NUMBER_WITH_OFFSET=$(($NUM + 200))" >> $GITHUB_ENV
           echo "run_number: ${{ github.run_number }}"
+          echo "run_number[-1]: ${{ github.run_number[-1] }}"
           echo ${{ env.ISEVEN }}
 
       - name: dotnet Publish App
