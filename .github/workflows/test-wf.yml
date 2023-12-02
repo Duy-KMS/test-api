@@ -1,0 +1,33 @@
+name: Development - Build & deploy
+
+on:
+  workflow_dispatch:
+
+# Use concurrency to enforce only 1 workflow can run at a time
+concurrency:
+  group: test-deploy-${{ endsWith(fromJson('["0", "2", "4", "6", "8"]'), github.run_number) && '0' || '1' }}
+
+env:
+  # Name of Azure Web APP
+  APP_NAME: app
+  NUM: ${{ github.run_number }}
+  ISEVEN: test-deploy-${{ endsWith(fromJson('["0", "2", "4", "6", "8"]'), github.run_number) && '1' || '0' }}
+
+jobs:
+
+  setNUM:
+    runs-on: ubuntu-latest
+
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: run number with offset
+        run: |
+          echo "GITHUB_RUN_NUMBER_WITH_OFFSET=$(($NUM + 200))" >> $GITHUB_ENV
+          echo ${{ env.ISEVEN }}
+
+      - name: dotnet Publish App
+        run: sleep ${{ vars.VAR_SLEEPDURATION }} && echo ${{ vars.VAR_TESTMESSAGE }}
