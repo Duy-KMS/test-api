@@ -5,13 +5,14 @@ on:
 
 # Use concurrency to enforce only 1 workflow can run at a time
 concurrency:
-  group: test-deploy-${{ endsWith(github.run_number, '0') || endsWith(github.run_number, '2') || endsWith(github.run_number, '4') || endsWith(github.run_number, '6') || endsWith(github.run_number, '8') }}
+  group: test-deploy-${{ (endsWith(github.run_number, '0') || endsWith(github.run_number, '3') || endsWith(github.run_number, '6')) && '1' || ((endsWith(github.run_number, '1') || endsWith(github.run_number, '4') || endsWith(github.run_number, '7')) && '2' || '3' ) }}
 
 env:
   # Name of Azure Web APP
   APP_NAME: app
   NUM: ${{ github.run_number }}
-  ISEVEN: ${{ endsWith(github.run_number, '0') || endsWith(github.run_number, '2') || endsWith(github.run_number, '4') || endsWith(github.run_number, '6') || endsWith(github.run_number, '8') }}
+  TESTDATA: ${{ (endsWith(github.run_number, '0') || endsWith(github.run_number, '3') || endsWith(github.run_number, '6')) && '1' || ((endsWith(github.run_number, '1') || endsWith(github.run_number, '4') || endsWith(github.run_number, '7')) && '2' || '3' ) }}
+  
 
 jobs:
   build:
@@ -28,7 +29,7 @@ jobs:
           echo "run_number[0]: ${{ format('{0}', github.run_number)[0] }}"
           echo "run_number[1]: ${{ format('{0}', github.run_number)[1] }}"
           echo "run_number[-1]: ${{ format('{0}', github.run_number)[-1] }}"
-          echo "ISEVEN: ${{ env.ISEVEN }}"
+          echo "ISEVEN: ${{ env.TESTDATA }}"
 
       - name: dotnet Publish App
         run: sleep ${{ vars.VAR_SLEEPDURATION }} && echo ${{ vars.VAR_TESTMESSAGE }}
