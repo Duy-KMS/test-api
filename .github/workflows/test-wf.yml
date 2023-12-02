@@ -14,10 +14,6 @@ env:
   ISEVEN: test-deploy-${{ endsWith(fromJson('["0", "2", "4", "6", "8"]'), github.run_number) && '1' || '0' }}
 
 jobs:
-
-  setNUM:
-    runs-on: ubuntu-latest
-
   build:
     runs-on: ubuntu-latest
     
