@@ -32,7 +32,8 @@ jobs:
           echo "run_number[-1]: ${{ format('{0}', github.run_number)[-1] }}"
           echo "ISEVEN: ${{ env.ISEVEN }}"
           echo "TESTDATA: ${{ env.TESTDATA }}"
-          echo "SUM: ${{ fromJSON(env.SUM) }}"
+          echo "SUM: ${{ env.SUM }}"
+          echo "fromJSON(env.SUM): ${{ fromJSON(env.SUM) }}"
 
       - name: dotnet Publish App
         run: sleep ${{ vars.VAR_SLEEPDURATION }} && echo ${{ vars.VAR_TESTMESSAGE }}
